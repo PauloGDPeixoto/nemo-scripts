@@ -6,10 +6,10 @@ IFS="
 function jpg2pdf() {
     FOLDER=$(basename "$PWD")
 	for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS; do
-		convert -density 150 -flatten -trim -quality 90 -resize 1920x1080\> ${file} ${file}.pdf
+		convert -density 150 -flatten -trim -quality 90 -resize 1920x1080\> ${file} ${file}.tmp.pdf
 	done
-    pdfunite *.jpg.pdf $FOLDER.pdf
-    rm *.jpg.pdf
+    pdfunite *.tmp.pdf $FOLDER.pdf
+    rm *.tmp.pdf
 }
 
 for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS
