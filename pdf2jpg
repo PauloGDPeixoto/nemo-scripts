@@ -1,0 +1,30 @@
+#!/bin/bash
+# Convert one or multiple pdf files to jpg
+# Files will be place in a subfolder with the filename inside the current folder
+
+IFS_BAK=IFS
+IFS='
+'
+
+for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS
+do
+  extension="${file##*.}"
+  if [ $extension != "pdf" ]
+  then
+	zenity --error --title="pdf2jpg" --text="Please select a PDF file"
+	exit 1
+  else
+	filename="${file##*/}"
+	filename="${filename%.*}"
+	mkdir $filename
+	convert -density 300 $file ${filename}/${filename}.jpg | \
+	zenity --progress --pulsate --no-cancel --auto-close \
+	--title="pdf2jpg" --text="Please wait..."
+	zenity --info --text="${file##*/} DONE!"
+
+fi
+
+  
+done
+
+IFS=IFS_BAK
