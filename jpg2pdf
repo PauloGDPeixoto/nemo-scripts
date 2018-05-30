@@ -1,0 +1,27 @@
+#!/bin/bash
+IFS_BAK=$IFS
+IFS="
+"
+
+function jpg2pdf() {
+    FOLDER=$(basename "$PWD")
+	for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS; do
+		convert -density 150 -flatten -trim -quality 90 -resize 1920x1080\> ${file} ${file}.pdf
+	done
+    pdfunite *.jpg.pdf $FOLDER.pdf
+    rm *.jpg.pdf
+}
+
+for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS
+do
+  extension="${file##*.}"
+  if [ $extension != "jpg" ]
+  then
+      	zenity --error --title="jpg2pdf" --text="Please select only .jpg files!"
+        exit 1
+  fi
+done
+
+jpg2pdf | zenity --progress --title="jpg2pdf" --auto-close --no-cancel --pulsate
+#zenity --info --title="Join files" --text="All done!"
+IFS=$IFS_BAK

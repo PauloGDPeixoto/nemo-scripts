@@ -2,7 +2,7 @@
 # Convert one or multiple pdf files to jpg
 # Files will be place in a subfolder with the filename inside the current folder
 
-IFS_BAK=IFS
+IFS_BAK=$IFS
 IFS='
 '
 
@@ -20,11 +20,11 @@ do
 	convert -density 300 $file ${filename}/${filename}.jpg | \
 	zenity --progress --pulsate --no-cancel --auto-close \
 	--title="pdf2jpg" --text="Please wait..."
-	zenity --info --text="${file##*/} DONE!"
+	#zenity --info --text="${file##*/} DONE!"
 
 fi
 
   
 done
 
-IFS=IFS_BAK
+IFS=$IFS_BAK
