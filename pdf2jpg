@@ -9,7 +9,7 @@ IFS='
 for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS
 do
   extension="${file##*.}"
-  if [ $extension != "pdf" ]
+  if [ ${extension,,} != "pdf" ]
   then
 	zenity --error --title="pdf2jpg" --text="Please select a PDF file"
 	exit 1

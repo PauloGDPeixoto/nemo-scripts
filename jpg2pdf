@@ -15,7 +15,7 @@ function jpg2pdf() {
 for file in $NEMO_SCRIPT_SELECTED_FILE_PATHS
 do
   extension="${file##*.}"
-  if [ $extension != "jpg" ]
+  if [ ${extension,,} != "jpg" ]
   then
       	zenity --error --title="jpg2pdf" --text="Please select only .jpg files!"
         exit 1
